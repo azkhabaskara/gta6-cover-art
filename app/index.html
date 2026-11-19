@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Shore Cover Studio — GTA-style cover art maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="studio">
+  <section class="panel" aria-label="Cover controls">
+    <h1>Neon Shore <span>Cover Studio</span></h1>
+    <p class="tagline">Your photo + a caption = a GTA-style poster cover. Photos never leave your machine.</p>
+
+    <fieldset>
+      <legend>1 · Photos</legend>
+      <div class="photo-row">
+        <label class="file-btn">Photo A <input id="photoA" type="file" accept="image/*"></label>
+        <label class="file-btn">Photo B <input id="photoB" type="file" accept="image/*"></label>
+      </div>
+      <div class="sample-row">
+        <button id="sampleA" type="button">Load sample: Boulevard</button>
+        <button id="sampleB" type="button">Load sample: Pier</button>
+        <button id="fillAll" type="button" title="Fill every panel with photo A">Fill all with A</button>
+      </div>
+      <p class="hint" id="photoStatus">No photo yet — load a sample or pick your own.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Layout</legend>
+      <div class="chip-row" id="layoutRow" role="group" aria-label="Panel layout"></div>
+      <div class="chip-row" id="panelRow" role="group" aria-label="Selected panel"></div>
+      <label class="slider">Zoom <span id="zoomVal">1.05×</span>
+        <input id="zoom" type="range" min="1" max="2.5" step="0.01" value="1.05">
+      </label>
+      <label class="slider">Pan left–right <span id="dxVal">0</span>
+        <input id="dx" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+      <label class="slider">Pan up–down <span id="dyVal">0</span>
+        <input id="dy" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+      <p class="hint">Tip: drag the photo on the preview to pan it, scroll to zoom. Click a panel to select it.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · Words &amp; grade</legend>
+      <label>Title <input id="title" type="text" maxlength="24" value="Neon Shore"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="one last summer"></label>
+      <label>Badge <input id="badge" type="text" maxlength="18" value="Palm Coast"></label>
+      <div class="swatch-row" id="gradeRow" role="group" aria-label="Colour grade"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · Finish</legend>
+      <div class="toggle-row">
+        <label><input id="fxSunburst" type="checkbox" checked> Sun rays</label>
+        <label><input id="fxHalftone" type="checkbox" checked> Halftone</label>
+        <label><input id="fxGrain" type="checkbox" checked> Grain</label>
+        <label><input id="fxVignette" type="checkbox" checked> Vignette</label>
+        <label><input id="fxFrame" type="checkbox" checked> Frame</label>
+      </div>
+      <div class="chip-row" id="sizeRow" role="group" aria-label="Export size"></div>
+      <div class="export-row">
+        <button id="export" type="button" class="primary">Export PNG</button>
+        <button id="exportAll" type="button">Export all 3 sizes</button>
+      </div>
+      <div class="export-row">
+        <button id="undo" type="button">Undo</button>
+        <button id="redo" type="button">Redo</button>
+        <button id="reset" type="button">Reset cover</button>
+      </div>
+      <p id="status" role="status"></p>
+    </fieldset>
+  </section>
+
+  <section class="preview" aria-label="Live cover preview">
+    <canvas id="cover" width="1080" height="1080"></canvas>
+    <p class="preview-note">Live preview — what you see is what the PNG gets.</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
