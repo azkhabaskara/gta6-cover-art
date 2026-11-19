@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Shore Cover Studio — GTA-style cover art maker</title>
+<meta name="description" content="Turn any photo and caption into multi-panel GTA-style cover art, offline in your browser. Export 1080×1080, 1080×1350 and 1920×1080 PNGs.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">?</span>
+    <div>
+      <h1>NEON SHORE <span>Cover Studio</span></h1>
+      <p>Multi-panel cover art, Vice City style — your photos never leave this machine.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="undoBtn" type="button" title="Undo">↩ Undo</button>
+    <button id="redoBtn" type="button" title="Redo">↪ Redo</button>
+    <button id="resetBtn" type="button" title="Reset the design, keep the photos">Reset design</button>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="stage" aria-label="Live preview">
+    <canvas id="preview" width="720" height="720"></canvas>
+    <p class="hint">Click a panel to select it · drag on the preview to pan that photo · scroll over it to zoom</p>
+    <div class="export-row">
+      <label for="sizeSelect">Export size</label>
+      <select id="sizeSelect">
+        <option value="square">Square — 1080 × 1080</option>
+        <option value="portrait">Portrait — 1080 × 1350</option>
+        <option value="wide">Wide — 1920 × 1080</option>
+      </select>
+      <button id="exportBtn" type="button" class="primary">Export PNG</button>
+      <button id="exportAllBtn" type="button" class="primary alt">Export all 3 sizes</button>
+      <span id="exportNote" class="export-note" role="status"></span>
+    </div>
+  </section>
+
+  <aside class="controls" aria-label="Cover controls">
+    <section class="group" aria-label="Photos">
+      <h2>1 · Your photos</h2>
+      <div class="photo-slots">
+        <div class="photo-slot" id="slotA">
+          <strong>Photo A</strong>
+          <img id="thumbA" alt="Photo A thumbnail">
+          <label class="file-btn">Upload A
+            <input id="fileA" type="file" accept="image/*">
+          </label>
+          <button id="sampleA" type="button">Sample: Boulevard</button>
+        </div>
+        <div class="photo-slot" id="slotB">
+          <strong>Photo B</strong>
+          <img id="thumbB" alt="Photo B thumbnail">
+          <label class="file-btn">Upload B
+            <input id="fileB" type="file" accept="image/*">
+          </label>
+          <button id="sampleB" type="button">Sample: Pier</button>
+        </div>
+      </div>
+      <button id="fillAllA" type="button">Fill all panels with A</button>
+    </section>
+
+    <section class="group" aria-label="Layout">
+      <h2>2 · Layout</h2>
+      <div class="chip-row" id="layoutRow" role="radiogroup" aria-label="Layout"></div>
+    </section>
+
+    <section class="group" aria-label="Colour grade">
+      <h2>3 · Colour grade</h2>
+      <div class="chip-row" id="gradeRow" role="radiogroup" aria-label="Colour grade"></div>
+    </section>
+
+    <section class="group" aria-label="Lettering">
+      <h2>4 · Lettering</h2>
+      <label class="field">Title
+        <input id="titleInput" type="text" value="NEON SHORE" maxlength="28" autocomplete="off">
+      </label>
+      <label class="field">Subtitle (script)
+        <input id="subtitleInput" type="text" value="one last summer" maxlength="40" autocomplete="off">
+      </label>
+      <label class="field">Badge ribbon
+        <input id="badgeInput" type="text" value="PALM COAST" maxlength="16" autocomplete="off">
+      </label>
+    </section>
+
+    <section class="group" aria-label="Selected panel">
+      <h2>5 · Selected panel <span id="panelName" class="panel-name"></span></h2>
+      <div class="seg" id="panelPhotoSeg" role="radiogroup" aria-label="Panel photo">
+        <button type="button" data-photo="A">Photo A</button>
+        <button type="button" data-photo="B">Photo B</button>
+      </div>
+      <label class="field">Zoom <span id="zoomVal" class="val"></span>
+        <input id="zoomInput" type="range" min="1" max="3" step="0.01" value="1">
+      </label>
+      <label class="field">Pan left / right <span id="panXVal" class="val"></span>
+        <input id="panXInput" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+      <label class="field">Pan up / down <span id="panYVal" class="val"></span>
+        <input id="panYInput" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+    </section>
+
+    <section class="group" aria-label="Effects">
+      <h2>6 · Effects</h2>
+      <div class="checks" id="effectChecks"></div>
+    </section>
+
+    <p class="fineprint">Original art made on your machine. No Rockstar Games logo, artwork
+    or font is used here. Anton and Pacifico are shipped under the SIL Open Font
+    License (see app/fonts/OFL.txt). Sample photos were made with an image model
+    for make.fun and are free to use.</p>
+  </aside>
+</main>
+
+<script src="src/cover.js"></script>
+<script src="src/main.js"></script>
+<script src="src/shots.js"></script>
+</body>
+</html>
