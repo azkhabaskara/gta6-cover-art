@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Shore Cover Studio — GTA-style cover maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+  <section class="controls" aria-label="Cover controls">
+    <header>
+      <h1>Neon Shore <span>Cover Studio</span></h1>
+      <p>Your photo + a caption, turned into a multi-panel GTA-style poster cover. Everything runs offline, on your machine.</p>
+    </header>
+
+    <section class="group">
+      <h2>1 · Photos</h2>
+      <div class="photo-row">
+        <label class="file">Photo A <input id="uploadA" type="file" accept="image/*"></label>
+        <label class="file">Photo B <input id="uploadB" type="file" accept="image/*"></label>
+      </div>
+      <div class="photo-row">
+        <button id="sampleA" type="button">Use sample A</button>
+        <button id="sampleB" type="button">Use sample B</button>
+      </div>
+      <p class="hint">Click a panel on the cover to select it, then choose which photo fills it.</p>
+    </section>
+
+    <section class="group">
+      <h2>2 · Layout</h2>
+      <div id="layouts" class="pick-row" role="group" aria-label="Layout"></div>
+    </section>
+
+    <section class="group">
+      <h2>3 · Sunset grade</h2>
+      <div id="grades" class="swatch-row" role="group" aria-label="Colour grade"></div>
+    </section>
+
+    <section class="group">
+      <h2>4 · Lettering</h2>
+      <label>Title <input id="title" type="text" maxlength="28" value="NEON SHORE"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="one last summer"></label>
+      <label>Badge <input id="badge" type="text" maxlength="14" value="PALM COAST"></label>
+    </section>
+
+    <section class="group">
+      <h2>5 · Selected panel</h2>
+      <div class="panel-nav">
+        <button id="panelPrev" type="button" aria-label="Previous panel">‹</button>
+        <span id="panelLabel">Panel 1 of 4</span>
+        <button id="panelNext" type="button" aria-label="Next panel">›</button>
+      </div>
+      <div class="photo-pick">
+        <button id="photoA" type="button">Photo A</button>
+        <button id="photoB" type="button">Photo B</button>
+      </div>
+      <label>Zoom <span id="zoomVal">100%</span>
+        <input id="zoom" type="range" min="1" max="2.5" step="0.05" value="1">
+      </label>
+      <label>Pan left–right
+        <input id="panX" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+      <label>Pan up–down
+        <input id="panY" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+    </section>
+
+    <section class="group">
+      <h2>6 · Print effects</h2>
+      <div class="checks">
+        <label><input id="fx-grain" type="checkbox" checked> Grain</label>
+        <label><input id="fx-vignette" type="checkbox" checked> Vignette</label>
+        <label><input id="fx-halftone" type="checkbox"> Halftone</label>
+        <label><input id="fx-rays" type="checkbox" checked> Sun rays</label>
+        <label><input id="fx-frame" type="checkbox" checked> Frame</label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>7 · Export</h2>
+      <div id="sizes" class="pick-row" role="group" aria-label="Export size"></div>
+      <div class="export-row">
+        <button id="exportPng" type="button" class="primary">Export PNG</button>
+        <button id="exportAll" type="button">Export all 3 sizes</button>
+      </div>
+      <div class="undo-row">
+        <button id="undo" type="button">Undo</button>
+        <button id="redo" type="button">Redo</button>
+      </div>
+      <p id="status" role="status"></p>
+    </section>
+
+    <footer>
+      <p>Original design. No Rockstar logo, artwork or font. Lettering: Anton + Pacifico (SIL Open Font License, vendored under <code>app/fonts/</code>).</p>
+    </footer>
+  </section>
+
+  <section class="stage" aria-label="Cover preview">
+    <canvas id="cover" width="1080" height="1080"></canvas>
+  </section>
+</main>
+<script type="module">
+  import * as Cover from './src/cover.js';
+  window.NeonShoreCover = Cover;
+</script>
+<script type="module" src="./src/main.js"></script>
+<script src="./src/shots.js"></script>
+</body>
+</html>
